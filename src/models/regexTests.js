@@ -7,6 +7,7 @@ export default class RegexTests {
    */
   static match(ex, str) {
     const exprObject = this.parseExpresstion(ex);
+    console.log(exprObject);
     const regex = this.buildRegex(exprObject);
     return {
       expression: str.match(regex.expression),

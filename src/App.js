@@ -6,11 +6,11 @@ function App() {
   return (
     <div className="App">
       <header>
-        <p>Test of my data structures knowledge.</p>
+        <h2>Tests of my data structures knowledge.</h2>
       </header>
-      <body>
+      <div>
         <MainPage />
-      </body>
+      </div>
     </div>
   );
 }

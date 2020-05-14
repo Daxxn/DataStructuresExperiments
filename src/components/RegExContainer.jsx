@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RegexTests from '../models/regexTests';
 import ExpressionMatches from './ExpressionMatches';
+import '../styles/RegExContainer.css';
 
 export default class RegExContainer extends Component {
   constructor(props) {
@@ -69,7 +70,9 @@ export default class RegExContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="regex-body">
+        <h4>Regex Tests</h4>
+        <p>Not the most usable regex parser. Theres tons of bugs but i dont know enough about this topic to fix it right now.</p>
         <input type="text" id="regexInputId" onChange={this.onRegexInputChange} value={this.state.rawExp} />
         <input type="text" id="regexStringId" onChange={this.onInputStringChange} value={this.state.regexString} />
         <button type="button" id="RunExpressionId" onClick={this.onEvaluate}>Evaluate Expression</button>
