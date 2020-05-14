@@ -62,7 +62,8 @@ export default class RegExContainer extends Component {
     console.log(results);
     console.log(typeof results);
     this.setState({
-      regexResults: results,
+      regexResults: results.expression,
+      message: results.msg,
     });
   }
 
