@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import '../styles/ArrayContainer.css';
 import ArrayDisplay from './ArrayDisplay';
 import ArrayControls from './ArrayControls';
+import ArrayTests from '../models/ArrayTests';
 
 export default class ArrayContainer extends Component {
   constructor(props) {
     super(props);
+    const { initialData } = props;
     this.state = {
-      arrayData: this.props.initialData,
+      arrayData: initialData,
       inputData: '',
     }
 
     this.onClick = this.onClick.bind(this);
-    this.onInput = this.onInput.bind(this);
+    this.onInput = this.onInput.bind(this); 
   }
 
   /**
@@ -22,19 +24,23 @@ export default class ArrayContainer extends Component {
    */
   onClick(e) {
     const input = e.target;
-    console.log(input.id);
+    console.log(e.target.value);
 
     if (this.state.inputData !== undefined || this.state.inputData !== '') {
       if (input.id === 'popButton') {
-
+        // const tempArr = ArrayTests.removeItem(this.state.arrayData, this.state.inputData);
         this.setState((state) => ({
-          arrayData: state.arrayData.pop(input.value),
+          arrayData: ArrayTests.removeItem(state.arrayData, state.inputData),
         }));
       } else if (input.id === 'pushButton') {
-        this.setState((state) => ({
-          arrayData: state.arrayData.push(input.value),
-        }));
+        const tempArr = this.state.arrayData;
+        tempArr.push(this.state.inputData);
+        this.setState({
+          arrayData: tempArr,
+          inputData: '',
+        });
       }
+      console.log(this.state.arrayData);
     }
   }
 
@@ -47,14 +53,14 @@ export default class ArrayContainer extends Component {
     this.setState({
       inputData: input.value,
     })
-  }
+  } 
 
   render() {
     return (
        <div className="array-body">
          <h4>Array Tests</h4>
-         <ArrayControls onClick={this.onClick} onChange={this.onInput}/>
-         <ArrayDisplay data={this.state.arrayData}/>
+         <ArrayControls onClick={this.onClick} onChange={this.onInput} input={this.state.inputData} />
+         <ArrayDisplay arrayData={this.state.arrayData} />
        </div>
     );
   }
