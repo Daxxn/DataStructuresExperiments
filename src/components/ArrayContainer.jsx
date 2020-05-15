@@ -12,10 +12,10 @@ export default class ArrayContainer extends Component {
     this.state = {
       arrayData: initialData,
       inputData: '',
-    }
+    };
 
     this.onClick = this.onClick.bind(this);
-    this.onInput = this.onInput.bind(this); 
+    this.onInput = this.onInput.bind(this);
   }
 
   /**
@@ -26,21 +26,21 @@ export default class ArrayContainer extends Component {
     const input = e.target;
     console.log(e.target.value);
 
-    if (this.state.inputData !== undefined || this.state.inputData !== '') {
+    const { inputData, arrayData } = this.state;
+    if (inputData !== undefined || inputData !== '') {
       if (input.id === 'popButton') {
         // const tempArr = ArrayTests.removeItem(this.state.arrayData, this.state.inputData);
         this.setState((state) => ({
           arrayData: ArrayTests.removeItem(state.arrayData, state.inputData),
         }));
       } else if (input.id === 'pushButton') {
-        const tempArr = this.state.arrayData;
-        tempArr.push(this.state.inputData);
+        const tempArr = ArrayTests.addItem(arrayData, inputData);
         this.setState({
           arrayData: tempArr,
           inputData: '',
         });
       }
-      console.log(this.state.arrayData);
+      console.log(arrayData);
     }
   }
 
@@ -52,19 +52,20 @@ export default class ArrayContainer extends Component {
     const input = e.target;
     this.setState({
       inputData: input.value,
-    })
-  } 
+    });
+  }
 
   render() {
+    const { arrayData, inputData } = this.state;
     return (
-       <div className="array-body">
-         <h4>Array Tests</h4>
-         <ArrayControls onClick={this.onClick} onChange={this.onInput} input={this.state.inputData} />
-         <ArrayDisplay arrayData={this.state.arrayData} />
-       </div>
+      <div className="array-body">
+        <h4>Array Tests</h4>
+        <ArrayControls onClick={this.onClick} onChange={this.onInput} input={inputData} />
+        <ArrayDisplay arrayData={arrayData} />
+      </div>
     );
   }
 }
 ArrayContainer.propTypes = {
   initialData: PropTypes.arrayOf(PropTypes.number).isRequired,
-}
+};
